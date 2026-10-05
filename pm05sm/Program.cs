@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+namespace pm05sm;
 
-namespace pm05sm
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    private static void Main(string[] args)
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        ApplicationConfiguration.Initialize();
+        Database.Initialize();
+        if (args.Contains("--capture", StringComparer.OrdinalIgnoreCase))
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            EvidenceCapture.Create();
+            return;
         }
+        Application.Run(new LoginForm());
     }
 }
